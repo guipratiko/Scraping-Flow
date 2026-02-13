@@ -28,7 +28,7 @@ connectSocket();
 app.get('/', (req: Request, res: Response) => {
   res.json({
     status: 'ok',
-    message: 'Scraping-Flow API',
+    message: 'Scraping Flow está funcionando',
     version: '1.0.0',
     endpoints: {
       search: 'POST /api/scraping-flow/search',
