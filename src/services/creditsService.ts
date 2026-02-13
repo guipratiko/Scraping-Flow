@@ -4,7 +4,14 @@
 
 import mongoose from 'mongoose';
 
-const UserSchema = new mongoose.Schema(
+interface IUser {
+  _id: mongoose.Types.ObjectId;
+  name?: string;
+  email?: string;
+  scrapingCredits?: number;
+}
+
+const UserSchema = new mongoose.Schema<IUser>(
   {
     name: String,
     email: String,
@@ -13,7 +20,7 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.models.User || mongoose.model('User', UserSchema);
+const User = (mongoose.models.User as mongoose.Model<IUser>) || mongoose.model<IUser>('User', UserSchema);
 
 export async function getCredits(userId: string): Promise<number> {
   const user = await User.findById(userId).select('scrapingCredits').lean();
